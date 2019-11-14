@@ -57,7 +57,3 @@ functions:
           path: /
           method: put
           cors: true
-  
-plugins:
-  - serverless-pseudo-parameters
-  - serverless-domain-manager
