@@ -4,10 +4,8 @@ const utils = require('../common/utils');
 const Joi = require('joi');
 const AWS = require('aws-sdk');
 const dynamodb = new AWS.DynamoDB.DocumentClient();
-const lambda = new AWS.Lambda();
-const moment = require('moment');
 
-class AddCustomers extends BaseHandler {
+class AddEntity extends BaseHandler {
     //this is main function
     constructor() {
         super();
@@ -42,41 +40,27 @@ class AddCustomers extends BaseHandler {
     }
 
     // This function is used to get customer by cid
-    async checkIfCustomerExists(cid,cuid) {
-        console.log("in check customer exists");
-        
-        var params = {
-            TableName:`customers-${process.env.STAGE}`,
-            KeyConditionExpression:"#cid = :cidValue and #cuid = :cuidValue",
-            ExpressionAttributeNames: {
-                "#cid":"cid",
-                "#cuid":"cuid"
+    async checkIfCustomerExists(cid, cuid) {
+
+        console.log("in check customer exists-------");
+
+        let valRes = await dynamodb.get({
+            TableName: `customers-${process.env.STAGE}`,
+            Key: {
+                cid: cid
             },
-            ExpressionAttributeValues: {
-                ":cid": cid,
-                ":cuid": cuid
-            }           
-        };
-
-        confirm.log(params);
-        // let valRes = await dynamodb.get({
-        //     TableName: `customers-${process.env.STAGE}`,
-        //     Key: {
-        //         cid: cid
-        //     },
-        //     ProjectionExpression: 'cid'
-        // }).promise();
-
-        // if (valRes && 'Item' in valRes && valRes.Item && 'cid' in valRes.Item && valRes.Item.cid) {
-        //     return true;
-        // }
-        // else {
-        //     return false;
-        // }
+            ProjectionExpression: 'cid'
+        }).promise();
+        console.log(valRes);
+        if (valRes && 'Item' in valRes && valRes.Item && 'cid' in valRes.Item && valRes.Item.cid) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //values insert if customer does not exists
-    async createCustomer(body) {
+    async createEntity(body) {
 
         const euid = this.generateRandomeuid(2, 6);
         let item = {
@@ -95,36 +79,40 @@ class AddCustomers extends BaseHandler {
         return cuid;
     }
 
-
     async process(event, context, callback) {
+        try {
+            let body = event.body ? JSON.parse(event.body) : event;
 
-        let body = event.body ? JSON.parse(event.body) : event;
+            //Validate the input
+            //await utils.validate(body, this.getValidationSchema());
 
-        // Validate the input
-        //await utils.validate(body, this.getValidationSchema());
+            // Check if cid already exists
+            let customerExists = await this.checkIfCustomerExists(body.cid, body.cuid);
+            this.log.debug("customerExists:" + customerExists);
+            if (customerExists) {
+                return responseHandler.callbackRespondWithSimpleMessage('400', 'Duplicate customer');
+            }
 
-        // Check if cid and cuid already exists
-        console.log("cid from body----" + body.cid);
-        console.log("cuid from body----" + body.cuid);
-        let customerExists = await this.checkIfCustomerExists(body.cid, body.cuid);
-        this.log.debug("customerExists:" + customerExists);
-        if (customerExists) {
-            return responseHandler.callbackRespondWithSimpleMessage('400', 'Duplicate customer');
+            // Call to insert customer
+            //let cuid = await this.createCustomer(body);
+
+            let resp = {
+                cid: body.cid,
+                cuid: body.cuid,
+                message: "Entity Created Successfully"
+            }
+            return responseHandler.callbackRespondWithSimpleMessage(200, resp);
         }
-
-        // // Call to insert customer
-        // let cuid = await this.createCustomer(body);
-
-        // let resp = {
-        //     cid: body.cid,
-        //     cuid: cuid,
-        //     msg: "Customer Created Successfully"
-        // };
-        // this.log.debug(resp);
-        // return responseHandler.callbackRespondWithSimpleMessage(200, resp);
-    }
+        catch (err) {
+            if (err.message) {
+                return responseHandler.callbackRespondWithSimpleMessage(400, err.message);
+            } else {
+                return responseHandler.callbackRespondWithSimpleMessage(500, 'Internal Server Error')
+            }
+        }
+    };
 }
 
-exports.createcustomer = async (event, context, callback) => {
-    return await new AddCustomers().handler(event, context, callback);
+exports.createEntity = async (event, context, callback) => {
+    return await new AddEntity().handler(event, context, callback);
 }

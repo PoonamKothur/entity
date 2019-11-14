@@ -1,17 +1,12 @@
 service: cw-entity
 
-custom:
-  customDomain:
-    domainName: api.${opt:stage}.cecurecloud.com
-    basePath: 'customerid'
-    stage: ${opt:stage}
-    createRoute53Record: true
+stage: ${self:provider.stage}
 
 provider:
   name: aws
   runtime: nodejs10.x
   timeout: 30
-  region: ${opt:region, 'us-east-1'}
+  region: ${opt:region, 'ap-south-1'}
 
   environment: 
     STAGE: ${opt:stage}
@@ -40,7 +35,7 @@ provider:
 
 functions:
    getentityid:
-    handler: handlers/getcustomerbyid.getcustomer
+    handler: handlers/createentity.getcustomer
     events:
       - http:
           path: /{cid}
@@ -48,7 +43,7 @@ functions:
           cors: true
 
    createentity:
-    handler: handlers/addcustomers.createcustomer
+    handler: handlers/createentity.createEntity
     events:
       - http:
           path: /

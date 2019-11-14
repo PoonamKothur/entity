@@ -1,0 +1,8 @@
+{
+    "path": "/", 
+    "httpMethod": "POST",    
+    "queryStringParameters": null,
+    "pathParameters": "{\"cid\":\"000005\"}",    
+    "body": "{\"cid\":\"000008\",\"cuid\":\"Direct\"}",
+    "isBase64Encoded": false
+}
