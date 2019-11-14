@@ -1,0 +1,68 @@
+service: cw-entity
+
+custom:
+  customDomain:
+    domainName: api.${opt:stage}.cecurecloud.com
+    basePath: 'customerid'
+    stage: ${opt:stage}
+    createRoute53Record: true
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  timeout: 30
+  region: ${opt:region, 'us-east-1'}
+
+  environment: 
+    STAGE: ${opt:stage}
+    
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:CreateTable
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem        
+      Resource: '*'
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+        - lambda:Invoke
+      Resource: '*'
+    - Effect: Allow
+      Action: 
+        - cognito-idp:*
+      Resource: '*'
+
+functions:
+   getentityid:
+    handler: handlers/getcustomerbyid.getcustomer
+    events:
+      - http:
+          path: /{cid}
+          method: get
+          cors: true
+
+   createentity:
+    handler: handlers/addcustomers.createcustomer
+    events:
+      - http:
+          path: /
+          method: post
+          cors: true
+          
+   updatecustomer:
+    handler: handlers/updatecustomer.updatecustomer
+    events:
+      - http:
+          path: /
+          method: put
+          cors: true
+  
+plugins:
+  - serverless-pseudo-parameters
+  - serverless-domain-manager
