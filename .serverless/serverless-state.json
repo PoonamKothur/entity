@@ -173,7 +173,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cw-entity/dev/1573754202370-2019-11-14T17:56:42.370Z/cw-entity.zip"
+                "S3Key": "serverless/cw-entity/dev/1573754406444-2019-11-14T18:00:06.444Z/cw-entity.zip"
               },
               "FunctionName": "cw-entity-dev-getentityid",
               "Handler": "handlers/createentity.getcustomer",
@@ -212,7 +212,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cw-entity/dev/1573754202370-2019-11-14T17:56:42.370Z/cw-entity.zip"
+                "S3Key": "serverless/cw-entity/dev/1573754406444-2019-11-14T18:00:06.444Z/cw-entity.zip"
               },
               "FunctionName": "cw-entity-dev-createentity",
               "Handler": "handlers/createentity.createEntity",
@@ -251,7 +251,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cw-entity/dev/1573754202370-2019-11-14T17:56:42.370Z/cw-entity.zip"
+                "S3Key": "serverless/cw-entity/dev/1573754406444-2019-11-14T18:00:06.444Z/cw-entity.zip"
               },
               "FunctionName": "cw-entity-dev-updatecustomer",
               "Handler": "handlers/updatecustomer.updatecustomer",
@@ -541,7 +541,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1573754196396": {
+          "ApiGatewayDeployment1573754402460": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -747,10 +747,6 @@
       },
       "vpc": {}
     },
-    "plugins": [
-      "serverless-pseudo-parameters",
-      "serverless-domain-manager"
-    ],
     "pluginsData": {},
     "functions": {
       "getentityid": {
@@ -870,7 +866,7 @@
     "artifact": "/home/poonam/CodeBlock/Projects/CecureCloud/Code/cecurecloud/entity/.serverless/cw-entity.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/cw-entity/dev/1573754202370-2019-11-14T17:56:42.370Z",
+    "artifactDirectoryName": "serverless/cw-entity/dev/1573754406444-2019-11-14T18:00:06.444Z",
     "artifact": "cw-entity.zip"
   }
 }
