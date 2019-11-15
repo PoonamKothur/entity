@@ -33,3 +33,20 @@ provider:
         - cognito-idp:*
       Resource: '*'
 
+functions:
+  getentitybyid:
+    handler: handlers/getentitybyid.getentity
+    events:
+      - http:
+          path: /{cuid}/{euid}
+          method: get
+          cors: true
+
+  createentity:
+    handler: handlers/createentity.createEntity
+    events:
+      - http:
+          path: /{cu_id}/{eu_id}
+          method: post
+          cors: true
+
