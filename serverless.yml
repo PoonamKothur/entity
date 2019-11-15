@@ -42,11 +42,3 @@ functions:
           method: get
           cors: true
 
-  createentity:
-    handler: handlers/createentity.createEntity
-    events:
-      - http:
-          path: /{cu_id}/{eu_id}
-          method: post
-          cors: true
-
