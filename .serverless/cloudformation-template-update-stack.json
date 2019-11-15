@@ -22,12 +22,6 @@
         "LogGroupName": "/aws/lambda/cw-entity-dev-getentitybyid"
       }
     },
-    "CreateentityLogGroup": {
-      "Type": "AWS::Logs::LogGroup",
-      "Properties": {
-        "LogGroupName": "/aws/lambda/cw-entity-dev-createentity"
-      }
-    },
     "IamRoleLambdaExecution": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -140,7 +134,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cw-entity/dev/1573803504970-2019-11-15T07:38:24.970Z/cw-entity.zip"
+          "S3Key": "serverless/cw-entity/dev/1573803591793-2019-11-15T07:39:51.793Z/cw-entity.zip"
         },
         "FunctionName": "cw-entity-dev-getentitybyid",
         "Handler": "handlers/getentitybyid.getentity",
@@ -172,45 +166,6 @@
         "CodeSha256": "xWUARrDSxDuONn4vjpzIxhy8BLW1UyvB4cvdK56dlCc="
       }
     },
-    "CreateentityLambdaFunction": {
-      "Type": "AWS::Lambda::Function",
-      "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Ref": "ServerlessDeploymentBucket"
-          },
-          "S3Key": "serverless/cw-entity/dev/1573803504970-2019-11-15T07:38:24.970Z/cw-entity.zip"
-        },
-        "FunctionName": "cw-entity-dev-createentity",
-        "Handler": "handlers/createentity.createEntity",
-        "MemorySize": 1024,
-        "Role": {
-          "Fn::GetAtt": [
-            "IamRoleLambdaExecution",
-            "Arn"
-          ]
-        },
-        "Runtime": "nodejs10.x",
-        "Timeout": 30,
-        "Environment": {
-          "Variables": {}
-        }
-      },
-      "DependsOn": [
-        "CreateentityLogGroup",
-        "IamRoleLambdaExecution"
-      ]
-    },
-    "CreateentityLambdaVersiono0qBTdZPjBUF0OeONzsctUAQ2Z1MuydkpYqn0qmFYo": {
-      "Type": "AWS::Lambda::Version",
-      "DeletionPolicy": "Retain",
-      "Properties": {
-        "FunctionName": {
-          "Ref": "CreateentityLambdaFunction"
-        },
-        "CodeSha256": "xWUARrDSxDuONn4vjpzIxhy8BLW1UyvB4cvdK56dlCc="
-      }
-    },
     "ApiGatewayRestApi": {
       "Type": "AWS::ApiGateway::RestApi",
       "Properties": {
@@ -231,7 +186,7 @@
             "RootResourceId"
           ]
         },
-        "PathPart": "{cu_id}",
+        "PathPart": "{cuid}",
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         }
@@ -243,7 +198,7 @@
         "ParentId": {
           "Ref": "ApiGatewayResourceCuidVar"
         },
-        "PathPart": "{eu_id}",
+        "PathPart": "{euid}",
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         }
@@ -279,7 +234,7 @@
               "ResponseParameters": {
                 "method.response.header.Access-Control-Allow-Origin": "'*'",
                 "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'",
                 "method.response.header.Access-Control-Allow-Credentials": "'false'"
               },
               "ResponseTemplates": {
@@ -339,50 +294,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayMethodCuidVarEuidVarPost": {
-      "Type": "AWS::ApiGateway::Method",
-      "Properties": {
-        "HttpMethod": "POST",
-        "RequestParameters": {},
-        "ResourceId": {
-          "Ref": "ApiGatewayResourceCuidVarEuidVar"
-        },
-        "RestApiId": {
-          "Ref": "ApiGatewayRestApi"
-        },
-        "ApiKeyRequired": false,
-        "AuthorizationType": "NONE",
-        "Integration": {
-          "IntegrationHttpMethod": "POST",
-          "Type": "AWS_PROXY",
-          "Uri": {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
-                  "Ref": "AWS::Partition"
-                },
-                ":apigateway:",
-                {
-                  "Ref": "AWS::Region"
-                },
-                ":lambda:path/2015-03-31/functions/",
-                {
-                  "Fn::GetAtt": [
-                    "CreateentityLambdaFunction",
-                    "Arn"
-                  ]
-                },
-                "/invocations"
-              ]
-            ]
-          }
-        },
-        "MethodResponses": []
-      }
-    },
-    "ApiGatewayDeployment1573803500862": {
+    "ApiGatewayDeployment1573803587896": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -392,9 +304,7 @@
       },
       "DependsOn": [
         "ApiGatewayMethodCuidVarEuidVarOptions",
-        "ApiGatewayMethodCuidVarEuidVarOptions",
-        "ApiGatewayMethodCuidVarEuidVarGet",
-        "ApiGatewayMethodCuidVarEuidVarPost"
+        "ApiGatewayMethodCuidVarEuidVarGet"
       ]
     },
     "GetentitybyidLambdaPermissionApiGateway": {
@@ -403,43 +313,6 @@
         "FunctionName": {
           "Fn::GetAtt": [
             "GetentitybyidLambdaFunction",
-            "Arn"
-          ]
-        },
-        "Action": "lambda:InvokeFunction",
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
-                "Ref": "AWS::Partition"
-              },
-              ":execute-api:",
-              {
-                "Ref": "AWS::Region"
-              },
-              ":",
-              {
-                "Ref": "AWS::AccountId"
-              },
-              ":",
-              {
-                "Ref": "ApiGatewayRestApi"
-              },
-              "/*/*"
-            ]
-          ]
-        }
-      }
-    },
-    "CreateentityLambdaPermissionApiGateway": {
-      "Type": "AWS::Lambda::Permission",
-      "Properties": {
-        "FunctionName": {
-          "Fn::GetAtt": [
-            "CreateentityLambdaFunction",
             "Arn"
           ]
         },
@@ -482,12 +355,6 @@
       "Description": "Current Lambda function version",
       "Value": {
         "Ref": "GetentitybyidLambdaVersionl6YaQIrJYcavUTVp6OYd5bINGp4HFLk9KnE0ybogk"
-      }
-    },
-    "CreateentityLambdaFunctionQualifiedArn": {
-      "Description": "Current Lambda function version",
-      "Value": {
-        "Ref": "CreateentityLambdaVersiono0qBTdZPjBUF0OeONzsctUAQ2Z1MuydkpYqn0qmFYo"
       }
     },
     "ServiceEndpoint": {
