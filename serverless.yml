@@ -50,7 +50,7 @@ functions:
           method: post
           cors: true
 
-  createentity:
+  updateentity:
     handler: handlers/updateentity.updateentity
     events:
       - http:
