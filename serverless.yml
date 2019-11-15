@@ -46,7 +46,15 @@ functions:
     handler: handlers/createentity.createEntity
     events:
       - http:
-          path: /{cuid}/{euid}
+          path: /
           method: post
+          cors: true
+
+  createentity:
+    handler: handlers/updateentity.updateentity
+    events:
+      - http:
+          path: /{cuid}/{euid}
+          method: put
           cors: true
 

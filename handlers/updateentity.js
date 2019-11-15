@@ -68,22 +68,52 @@ class UpdateEntitybyId extends BaseHandler {
         return valRes;
     }
 
+    checkpathparams(event) {
+        if (event && 'pathParameters' in event && event.pathParameters && 'cuid' in event.pathParameters && event.pathParameters.cuid) {
+
+            if (event && 'pathParameters' in event && event.pathParameters && 'euid' in event.pathParameters && event.pathParameters.euid) {
+                return true;
+            }
+            else {
+                return responseHandler.callbackRespondWithSimpleMessage(400, "Please provide euid");
+            }
+        }
+        else {
+            return responseHandler.callbackRespondWithSimpleMessage(400, "Please provide cuid");
+        }
+    }
+
     async process(event, context, callback) {
         try {
             let body = event.body ? JSON.parse(event.body) : event;
 
+            //check path parameters
+            let paramresp = await checkpathparams(event);
+            console.log(paramresp);
             //await utils.validate(body, this.getValidationSchema());
-            let entityExists = await this.checkIfEntityExists(body.euid);
 
-            this.log.debug("entityExists:" + entityExists);
-            console.log("entityExists:" + entityExists);
-            if (!entityExists) {
-                console.log("call to update entity");
-                // Call to update entity
-                //let updateResp = await this.updateCustomer(body.cid, body);
+            // //check if customer exists
+            // let customerExists = await this.checkIfCustomerExists(body.cid, cuid);
 
-            }
-            else { return responseHandler.callbackRespondWithSimpleMessage('400', 'Customer not exists'); }
+            // this.log.debug("customerExists:" + customerExists);
+            // if (customerExists) {
+            //     // Call to insert entity
+            //     let euid = await this.createEntity(body);
+            // }
+            // else { return responseHandler.callbackRespondWithSimpleMessage('404', 'Customer does not exists'); }
+
+            // //check if entity exists
+            // let entityExists = await this.checkIfEntityExists(body.euid);
+
+            // this.log.debug("entityExists:" + entityExists);
+            // console.log("entityExists:" + entityExists);
+            // if (!entityExists) {
+            //     console.log("call to update entity");
+            //     // Call to update entity
+            //     //let updateResp = await this.updateCustomer(body.cid, body);
+
+            // }
+            // else { return responseHandler.callbackRespondWithSimpleMessage('400', 'Customer not exists'); }
 
             // let resp = {
             //     cid: body.cid,

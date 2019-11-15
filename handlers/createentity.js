@@ -4,6 +4,7 @@ const utils = require('../common/utils');
 const Joi = require('joi');
 const AWS = require('aws-sdk');
 const dynamodb = new AWS.DynamoDB.DocumentClient();
+const moment = require('moment');
 
 class AddEntity extends BaseHandler {
     //this is main function
@@ -42,12 +43,6 @@ class AddEntity extends BaseHandler {
 
     // This function is used to get customer by cid
     async checkIfCustomerExists(cid, cuid) {
-
-        console.log("in check customer exists-------");
-        console.log('customers_test');
-        console.log("cid--" + cid);
-        console.log("cuid--- " + cuid);
-
         var params = {
             TableName: 'customers_test',
             KeyConditionExpression: "#cid = :cidValue and #cuid = :cuidValue",
@@ -87,14 +82,16 @@ class AddEntity extends BaseHandler {
             euid: euid
         };
 
-        if (!utils.isNullOrEmptyKey(body, 'secondary')) {
-            body.secondary.lastUpdate = moment.utc();
+        if (!utils.isNullOrEmptyKey(body, 'business')) {
+            let now = moment();
+            body.business.lastUpdate = now.format();
         }
         console.log(`${body.cuid}-entity`);
         const params = {
             TableName: `${body.cuid}-entity`,
             Item: Object.assign(item, body)
         };
+        console.log(JSON.stringify(params));
         await dynamodb.put(params).promise();
 
         return euid;
@@ -103,19 +100,18 @@ class AddEntity extends BaseHandler {
     async process(event, context, callback) {
         try {
             let body = event.body ? JSON.parse(event.body) : event;
-           
-            console.log("body----" + JSON.stringify(body));
+            this.log.debug("body----" + JSON.stringify(body));
 
             //Validate the input
-            //await utils.validate(body, this.getValidationSchema());
+            await utils.validate(body, this.getValidationSchema());
 
-            // Check if cid already exists
+            // Check if cid and cuid already exists
             let customerExists = await this.checkIfCustomerExists(body.cid, body.cuid);
 
             this.log.debug("customerExists:" + customerExists);
             if (customerExists) {
                 // Call to insert entity
-              let   euid = await this.createEntity(body);
+              let euid = await this.createEntity(body);
             }
             else { return responseHandler.callbackRespondWithSimpleMessage('404', 'Customer does not exists'); }
 

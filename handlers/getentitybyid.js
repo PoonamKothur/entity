@@ -25,12 +25,12 @@ class GetEntitybyId extends BaseHandler {
 
             //check for cuid and euid from route
             if (event && 'pathParameters' in event && event.pathParameters && 'cuid' in event.pathParameters && event.pathParameters.cuid) {
-                    console.log("in cuid check");
+
                 if (event && 'pathParameters' in event && event.pathParameters && 'euid' in event.pathParameters && event.pathParameters.euid) {
-                    console.log("in euid check");
+
                     let euid = event.pathParameters.euid;
                     let cuid = event.pathParameters.cuid;
-                    let res = await this.getEntityByEuid(cuid,euid);
+                    let res = await this.getEntityByEuid(cuid, euid);
 
                     if (res && 'Item' in res) {
                         return responseHandler.callbackRespondWithJsonBody(200, res.Item);
@@ -45,7 +45,6 @@ class GetEntitybyId extends BaseHandler {
                 return responseHandler.callbackRespondWithSimpleMessage(400, "Please provide cuid");
             }
         }
-
         catch (err) {
             if (err.message) {
                 return responseHandler.callbackRespondWithSimpleMessage(400, err.message);

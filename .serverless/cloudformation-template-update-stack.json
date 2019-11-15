@@ -140,7 +140,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cw-entity/dev/1573803819406-2019-11-15T07:43:39.406Z/cw-entity.zip"
+          "S3Key": "serverless/cw-entity/dev/1573805059552-2019-11-15T08:04:19.552Z/cw-entity.zip"
         },
         "FunctionName": "cw-entity-dev-getentitybyid",
         "Handler": "handlers/getentitybyid.getentity",
@@ -162,14 +162,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GetentitybyidLambdaVersionl6YaQIrJYcavUTVp6OYd5bINGp4HFLk9KnE0ybogk": {
+    "GetentitybyidLambdaVersionpeuWuwn2ZivfivW4vbupB4wGV6LNumO1yTZqKNzlc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetentitybyidLambdaFunction"
         },
-        "CodeSha256": "xWUARrDSxDuONn4vjpzIxhy8BLW1UyvB4cvdK56dlCc="
+        "CodeSha256": "uoW5TS6EMlggjM5Wlg1FcibXmShdJovsqYx0QxrcBdM="
       }
     },
     "CreateentityLambdaFunction": {
@@ -179,7 +179,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cw-entity/dev/1573803819406-2019-11-15T07:43:39.406Z/cw-entity.zip"
+          "S3Key": "serverless/cw-entity/dev/1573805059552-2019-11-15T08:04:19.552Z/cw-entity.zip"
         },
         "FunctionName": "cw-entity-dev-createentity",
         "Handler": "handlers/createentity.createEntity",
@@ -201,14 +201,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "CreateentityLambdaVersiono0qBTdZPjBUF0OeONzsctUAQ2Z1MuydkpYqn0qmFYo": {
+    "CreateentityLambdaVersionAz52b0Q53TpGX8SkBYR1FlxanC9Cv9QuHJAMzhTQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateentityLambdaFunction"
         },
-        "CodeSha256": "xWUARrDSxDuONn4vjpzIxhy8BLW1UyvB4cvdK56dlCc="
+        "CodeSha256": "uoW5TS6EMlggjM5Wlg1FcibXmShdJovsqYx0QxrcBdM="
       }
     },
     "ApiGatewayRestApi": {
@@ -382,7 +382,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1573803815317": {
+    "ApiGatewayDeployment1573805055458": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -480,13 +480,13 @@
     "GetentitybyidLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetentitybyidLambdaVersionl6YaQIrJYcavUTVp6OYd5bINGp4HFLk9KnE0ybogk"
+        "Ref": "GetentitybyidLambdaVersionpeuWuwn2ZivfivW4vbupB4wGV6LNumO1yTZqKNzlc"
       }
     },
     "CreateentityLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateentityLambdaVersiono0qBTdZPjBUF0OeONzsctUAQ2Z1MuydkpYqn0qmFYo"
+        "Ref": "CreateentityLambdaVersionAz52b0Q53TpGX8SkBYR1FlxanC9Cv9QuHJAMzhTQ"
       }
     },
     "ServiceEndpoint": {
