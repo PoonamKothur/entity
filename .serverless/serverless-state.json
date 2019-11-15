@@ -161,7 +161,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cw-entity/dev/1573803591793-2019-11-15T07:39:51.793Z/cw-entity.zip"
+                "S3Key": "serverless/cw-entity/dev/1573803633093-2019-11-15T07:40:33.093Z/cw-entity.zip"
               },
               "FunctionName": "cw-entity-dev-getentitybyid",
               "Handler": "handlers/getentitybyid.getentity",
@@ -321,7 +321,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1573803587896": {
+          "ApiGatewayDeployment1573803629201": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -483,7 +483,7 @@
     "artifact": "/home/poonam/CodeBlock/Projects/CecureCloud/Code/cecurecloud/entity/.serverless/cw-entity.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/cw-entity/dev/1573803591793-2019-11-15T07:39:51.793Z",
+    "artifactDirectoryName": "serverless/cw-entity/dev/1573803633093-2019-11-15T07:40:33.093Z",
     "artifact": "cw-entity.zip"
   }
 }
