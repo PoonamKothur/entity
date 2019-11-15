@@ -21,6 +21,7 @@ class AddEntity extends BaseHandler {
         return Joi.object().keys({
             cid: Joi.string().required(),
             cuid: Joi.string().required(),
+            eid: Joi.string().required(),
             business: {
                 firstName: Joi.string(),
                 lastName: Joi.string(),
@@ -43,65 +44,88 @@ class AddEntity extends BaseHandler {
     async checkIfCustomerExists(cid, cuid) {
 
         console.log("in check customer exists-------");
+        console.log('customers_test');
+        console.log("cid--" + cid);
+        console.log("cuid--- " + cuid);
 
-        let valRes = await dynamodb.get({
-            TableName: `customers-${process.env.STAGE}`,
-            Key: {
-                cid: cid
+        var params = {
+            TableName: 'customers_test',
+            KeyConditionExpression: "#cid = :cidValue and #cuid = :cuidValue",
+            ExpressionAttributeNames: {
+                "#cid": "cid",
+                "#cuid": "cuid"
             },
-            ProjectionExpression: 'cid'
-        }).promise();
-        console.log(valRes);
-        if (valRes && 'Item' in valRes && valRes.Item && 'cid' in valRes.Item && valRes.Item.cid) {
+            ExpressionAttributeValues: {
+                ":cidValue": cid,
+                ":cuidValue": cuid
+            }
+        };
+
+        console.log("params---" + JSON.stringify(params));
+
+        let valRes = await dynamodb.query(params).promise();
+
+        console.log("return values of table --- " + JSON.stringify(valRes));
+
+        if (valRes.Count != 0) { //TODO 
+            //if (valRes && 'Items' in valRes && valRes.Items && 'cuid' in valRes.Items && valRes.Items.cuid) {
+            console.log("customer exits");
             return true;
         } else {
+            console.log("customer do not exits");
             return false;
         }
     }
 
     //values insert if customer does not exists
     async createEntity(body) {
-
+        console.log("in create entity------------");
         const euid = this.generateRandomeuid(2, 6);
+
+        console.log (JSON.stringify(body));
         let item = {
             euid: euid
         };
 
         if (!utils.isNullOrEmptyKey(body, 'secondary')) {
-            body.secondary.lastUpdate = moment.utc().valueOf();
+            body.secondary.lastUpdate = moment.utc();
         }
-
+        console.log(`${body.cuid}-entity`);
         const params = {
-            TableName: `customers-${process.env.STAGE}`,
+            TableName: `${body.cuid}-entity`,
             Item: Object.assign(item, body)
         };
         await dynamodb.put(params).promise();
-        return cuid;
+
+        return euid;
     }
 
     async process(event, context, callback) {
         try {
             let body = event.body ? JSON.parse(event.body) : event;
+           
+            console.log("body----" + JSON.stringify(body));
 
             //Validate the input
             //await utils.validate(body, this.getValidationSchema());
 
             // Check if cid already exists
             let customerExists = await this.checkIfCustomerExists(body.cid, body.cuid);
+
             this.log.debug("customerExists:" + customerExists);
             if (customerExists) {
-                return responseHandler.callbackRespondWithSimpleMessage('400', 'Duplicate customer');
+                // Call to insert entity
+              let   euid = await this.createEntity(body);
             }
-
-            // Call to insert customer
-            //let cuid = await this.createCustomer(body);
+            else { return responseHandler.callbackRespondWithSimpleMessage('404', 'Customer does not exists'); }
 
             let resp = {
                 cid: body.cid,
                 cuid: body.cuid,
+                //euid: euid, // TODO
                 message: "Entity Created Successfully"
             }
-            return responseHandler.callbackRespondWithSimpleMessage(200, resp);
+             return responseHandler.callbackRespondWithSimpleMessage(200, resp);
         }
         catch (err) {
             if (err.message) {

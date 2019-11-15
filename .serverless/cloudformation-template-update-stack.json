@@ -146,7 +146,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cw-entity/dev/1573754406444-2019-11-14T18:00:06.444Z/cw-entity.zip"
+          "S3Key": "serverless/cw-entity/dev/1573754507959-2019-11-14T18:01:47.959Z/cw-entity.zip"
         },
         "FunctionName": "cw-entity-dev-getentityid",
         "Handler": "handlers/createentity.getcustomer",
@@ -185,7 +185,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cw-entity/dev/1573754406444-2019-11-14T18:00:06.444Z/cw-entity.zip"
+          "S3Key": "serverless/cw-entity/dev/1573754507959-2019-11-14T18:01:47.959Z/cw-entity.zip"
         },
         "FunctionName": "cw-entity-dev-createentity",
         "Handler": "handlers/createentity.createEntity",
@@ -224,7 +224,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cw-entity/dev/1573754406444-2019-11-14T18:00:06.444Z/cw-entity.zip"
+          "S3Key": "serverless/cw-entity/dev/1573754507959-2019-11-14T18:01:47.959Z/cw-entity.zip"
         },
         "FunctionName": "cw-entity-dev-updatecustomer",
         "Handler": "handlers/updatecustomer.updatecustomer",
@@ -514,7 +514,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1573754402460": {
+    "ApiGatewayDeployment1573754504060": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {

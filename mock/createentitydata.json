@@ -3,6 +3,6 @@
     "httpMethod": "POST",    
     "queryStringParameters": null,
     "pathParameters": "{\"cid\":\"000005\"}",    
-    "body": "{\"cid\":\"000008\",\"cuid\":\"Direct\"}",
+    "body": "{\"cid\":\"000001\",\"cuid\":\"FGNDT4Y\",\"eid\":\"APAC\"}",
     "isBase64Encoded": false
 }

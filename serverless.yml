@@ -34,11 +34,11 @@ provider:
       Resource: '*'
 
 functions:
-   getentityid:
-    handler: handlers/createentity.getcustomer
+   getentitybyid:
+    handler: handlers/getentitybyid.getentity
     events:
       - http:
-          path: /{cid}
+          path: /{cuid}/{euid}
           method: get
           cors: true
 
@@ -46,12 +46,12 @@ functions:
     handler: handlers/createentity.createEntity
     events:
       - http:
-          path: /
+          path: /{cuid}/{euid}
           method: post
           cors: true
           
-   updatecustomer:
-    handler: handlers/updatecustomer.updatecustomer
+   updateentity:
+    handler: handlers/updateentity.updatecustomer
     events:
       - http:
           path: /
