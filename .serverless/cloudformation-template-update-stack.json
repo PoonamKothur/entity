@@ -16,10 +16,10 @@
         }
       }
     },
-    "GetentityidLogGroup": {
+    "GetentitybyidLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/cw-entity-dev-getentityid"
+        "LogGroupName": "/aws/lambda/cw-entity-dev-getentitybyid"
       }
     },
     "CreateentityLogGroup": {
@@ -28,10 +28,10 @@
         "LogGroupName": "/aws/lambda/cw-entity-dev-createentity"
       }
     },
-    "UpdatecustomerLogGroup": {
+    "UpdateentityLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/cw-entity-dev-updatecustomer"
+        "LogGroupName": "/aws/lambda/cw-entity-dev-updateentity"
       }
     },
     "IamRoleLambdaExecution": {
@@ -139,17 +139,17 @@
         }
       }
     },
-    "GetentityidLambdaFunction": {
+    "GetentitybyidLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cw-entity/dev/1573754507959-2019-11-14T18:01:47.959Z/cw-entity.zip"
+          "S3Key": "serverless/cw-entity/dev/1573803184607-2019-11-15T07:33:04.607Z/cw-entity.zip"
         },
-        "FunctionName": "cw-entity-dev-getentityid",
-        "Handler": "handlers/createentity.getcustomer",
+        "FunctionName": "cw-entity-dev-getentitybyid",
+        "Handler": "handlers/getentitybyid.getentity",
         "MemorySize": 1024,
         "Role": {
           "Fn::GetAtt": [
@@ -164,18 +164,18 @@
         }
       },
       "DependsOn": [
-        "GetentityidLogGroup",
+        "GetentitybyidLogGroup",
         "IamRoleLambdaExecution"
       ]
     },
-    "GetentityidLambdaVersionbNfvhufBOys4Rnk1Rd5juYI2nxP2wa2bHi8c3HfhAc": {
+    "GetentitybyidLambdaVersionl6YaQIrJYcavUTVp6OYd5bINGp4HFLk9KnE0ybogk": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "GetentityidLambdaFunction"
+          "Ref": "GetentitybyidLambdaFunction"
         },
-        "CodeSha256": "M0/jhlgOdp1LZ9HUQ6kY/3eASmkxXMRLeWCS1DgU6Ao="
+        "CodeSha256": "xWUARrDSxDuONn4vjpzIxhy8BLW1UyvB4cvdK56dlCc="
       }
     },
     "CreateentityLambdaFunction": {
@@ -185,7 +185,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cw-entity/dev/1573754507959-2019-11-14T18:01:47.959Z/cw-entity.zip"
+          "S3Key": "serverless/cw-entity/dev/1573803184607-2019-11-15T07:33:04.607Z/cw-entity.zip"
         },
         "FunctionName": "cw-entity-dev-createentity",
         "Handler": "handlers/createentity.createEntity",
@@ -207,27 +207,27 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "CreateentityLambdaVersion3O9axF65t0mLEYGMSP7Podur6EqljfbCtN6sIzLSk": {
+    "CreateentityLambdaVersiono0qBTdZPjBUF0OeONzsctUAQ2Z1MuydkpYqn0qmFYo": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateentityLambdaFunction"
         },
-        "CodeSha256": "M0/jhlgOdp1LZ9HUQ6kY/3eASmkxXMRLeWCS1DgU6Ao="
+        "CodeSha256": "xWUARrDSxDuONn4vjpzIxhy8BLW1UyvB4cvdK56dlCc="
       }
     },
-    "UpdatecustomerLambdaFunction": {
+    "UpdateentityLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cw-entity/dev/1573754507959-2019-11-14T18:01:47.959Z/cw-entity.zip"
+          "S3Key": "serverless/cw-entity/dev/1573803184607-2019-11-15T07:33:04.607Z/cw-entity.zip"
         },
-        "FunctionName": "cw-entity-dev-updatecustomer",
-        "Handler": "handlers/updatecustomer.updatecustomer",
+        "FunctionName": "cw-entity-dev-updateentity",
+        "Handler": "handlers/updateentity.updatecustomer",
         "MemorySize": 1024,
         "Role": {
           "Fn::GetAtt": [
@@ -242,18 +242,18 @@
         }
       },
       "DependsOn": [
-        "UpdatecustomerLogGroup",
+        "UpdateentityLogGroup",
         "IamRoleLambdaExecution"
       ]
     },
-    "UpdatecustomerLambdaVersionsUO7zOPkzugMuBgxnIFJFPkuzbU6OsQxl3CzS8LznI": {
+    "UpdateentityLambdaVersionvRAzsL3kHaJBk8Bd6JLvmNx2wKW7fwhAJ2Aaccmhq0": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "UpdatecustomerLambdaFunction"
+          "Ref": "UpdateentityLambdaFunction"
         },
-        "CodeSha256": "M0/jhlgOdp1LZ9HUQ6kY/3eASmkxXMRLeWCS1DgU6Ao="
+        "CodeSha256": "xWUARrDSxDuONn4vjpzIxhy8BLW1UyvB4cvdK56dlCc="
       }
     },
     "ApiGatewayRestApi": {
@@ -267,7 +267,7 @@
         }
       }
     },
-    "ApiGatewayResourceCidVar": {
+    "ApiGatewayResourceCuidVar": {
       "Type": "AWS::ApiGateway::Resource",
       "Properties": {
         "ParentId": {
@@ -276,13 +276,25 @@
             "RootResourceId"
           ]
         },
-        "PathPart": "{cid}",
+        "PathPart": "{cu_id}",
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         }
       }
     },
-    "ApiGatewayMethodCidVarOptions": {
+    "ApiGatewayResourceCuidVarEuidVar": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiGatewayResourceCuidVar"
+        },
+        "PathPart": "{eu_id}",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodCuidVarEuidVarOptions": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
         "AuthorizationType": "NONE",
@@ -312,7 +324,7 @@
               "ResponseParameters": {
                 "method.response.header.Access-Control-Allow-Origin": "'*'",
                 "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
                 "method.response.header.Access-Control-Allow-Credentials": "'false'"
               },
               "ResponseTemplates": {
@@ -322,7 +334,7 @@
           ]
         },
         "ResourceId": {
-          "Ref": "ApiGatewayResourceCidVar"
+          "Ref": "ApiGatewayResourceCuidVarEuidVar"
         },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
@@ -359,7 +371,7 @@
               "ResponseParameters": {
                 "method.response.header.Access-Control-Allow-Origin": "'*'",
                 "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,PUT,POST'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,PUT'",
                 "method.response.header.Access-Control-Allow-Credentials": "'false'"
               },
               "ResponseTemplates": {
@@ -379,13 +391,13 @@
         }
       }
     },
-    "ApiGatewayMethodCidVarGet": {
+    "ApiGatewayMethodCuidVarEuidVarGet": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
         "HttpMethod": "GET",
         "RequestParameters": {},
         "ResourceId": {
-          "Ref": "ApiGatewayResourceCidVar"
+          "Ref": "ApiGatewayResourceCuidVarEuidVar"
         },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
@@ -410,7 +422,7 @@
                 ":lambda:path/2015-03-31/functions/",
                 {
                   "Fn::GetAtt": [
-                    "GetentityidLambdaFunction",
+                    "GetentitybyidLambdaFunction",
                     "Arn"
                   ]
                 },
@@ -422,16 +434,13 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayMethodPost": {
+    "ApiGatewayMethodCuidVarEuidVarPost": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
         "HttpMethod": "POST",
         "RequestParameters": {},
         "ResourceId": {
-          "Fn::GetAtt": [
-            "ApiGatewayRestApi",
-            "RootResourceId"
-          ]
+          "Ref": "ApiGatewayResourceCuidVarEuidVar"
         },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
@@ -502,7 +511,7 @@
                 ":lambda:path/2015-03-31/functions/",
                 {
                   "Fn::GetAtt": [
-                    "UpdatecustomerLambdaFunction",
+                    "UpdateentityLambdaFunction",
                     "Arn"
                   ]
                 },
@@ -514,7 +523,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1573754504060": {
+    "ApiGatewayDeployment1573803180803": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -523,19 +532,20 @@
         "StageName": "dev"
       },
       "DependsOn": [
-        "ApiGatewayMethodCidVarOptions",
+        "ApiGatewayMethodCuidVarEuidVarOptions",
+        "ApiGatewayMethodCuidVarEuidVarOptions",
         "ApiGatewayMethodOptions",
-        "ApiGatewayMethodCidVarGet",
-        "ApiGatewayMethodPost",
+        "ApiGatewayMethodCuidVarEuidVarGet",
+        "ApiGatewayMethodCuidVarEuidVarPost",
         "ApiGatewayMethodPut"
       ]
     },
-    "GetentityidLambdaPermissionApiGateway": {
+    "GetentitybyidLambdaPermissionApiGateway": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "FunctionName": {
           "Fn::GetAtt": [
-            "GetentityidLambdaFunction",
+            "GetentitybyidLambdaFunction",
             "Arn"
           ]
         },
@@ -604,12 +614,12 @@
         }
       }
     },
-    "UpdatecustomerLambdaPermissionApiGateway": {
+    "UpdateentityLambdaPermissionApiGateway": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "FunctionName": {
           "Fn::GetAtt": [
-            "UpdatecustomerLambdaFunction",
+            "UpdateentityLambdaFunction",
             "Arn"
           ]
         },
@@ -648,22 +658,22 @@
         "Ref": "ServerlessDeploymentBucket"
       }
     },
-    "GetentityidLambdaFunctionQualifiedArn": {
+    "GetentitybyidLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetentityidLambdaVersionbNfvhufBOys4Rnk1Rd5juYI2nxP2wa2bHi8c3HfhAc"
+        "Ref": "GetentitybyidLambdaVersionl6YaQIrJYcavUTVp6OYd5bINGp4HFLk9KnE0ybogk"
       }
     },
     "CreateentityLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateentityLambdaVersion3O9axF65t0mLEYGMSP7Podur6EqljfbCtN6sIzLSk"
+        "Ref": "CreateentityLambdaVersiono0qBTdZPjBUF0OeONzsctUAQ2Z1MuydkpYqn0qmFYo"
       }
     },
-    "UpdatecustomerLambdaFunctionQualifiedArn": {
+    "UpdateentityLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "UpdatecustomerLambdaVersionsUO7zOPkzugMuBgxnIFJFPkuzbU6OsQxl3CzS8LznI"
+        "Ref": "UpdateentityLambdaVersionvRAzsL3kHaJBk8Bd6JLvmNx2wKW7fwhAJ2Aaccmhq0"
       }
     },
     "ServiceEndpoint": {
