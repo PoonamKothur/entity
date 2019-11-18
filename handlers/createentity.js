@@ -101,8 +101,8 @@ class AddEntity extends BaseHandler {
 
             //check cuid path param
             if (event && 'pathParameters' in event && event.pathParameters && 'cuid' in event.pathParameters && event.pathParameters.cuid) {
-                let cuid = event.pathParameters.cuid;
-                return cuid;
+               
+                return event.pathParameters.cuid;
             }
             else{
                  return responseHandler.callbackRespondWithSimpleMessage('404', 'Please provide cuid');
