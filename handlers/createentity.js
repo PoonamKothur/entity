@@ -4,7 +4,7 @@ const utils = require('../common/utils');
 const Joi = require('joi');
 const AWS = require('aws-sdk');
 const dynamodb = new AWS.DynamoDB.DocumentClient();
-const moment = require('moment');
+const moment = require("moment");
 
 class AddEntity extends BaseHandler {
     //this is main function
@@ -41,10 +41,10 @@ class AddEntity extends BaseHandler {
         });
     }
 
-    // This function is used to get customer by cid
+    // This function is used to get customer by cid and cuid
     async checkIfCustomerExists(cid, cuid) {
         var params = {
-            TableName: 'customers_test',
+            TableName:  `${process.env.STAGE}-customerid`,
             KeyConditionExpression: "#cid = :cidValue and #cuid = :cuidValue",
             ExpressionAttributeNames: {
                 "#cid": "cid",
@@ -55,29 +55,23 @@ class AddEntity extends BaseHandler {
                 ":cuidValue": cuid
             }
         };
-
-        console.log("params---" + JSON.stringify(params));
-
+        this.log.debug("params---" + JSON.stringify(params));
         let valRes = await dynamodb.query(params).promise();
+        this.log.debug("return values of table --- " + JSON.stringify(valRes));
 
-        console.log("return values of table --- " + JSON.stringify(valRes));
-
-        if (valRes.Count != 0) { //TODO 
-            //if (valRes && 'Items' in valRes && valRes.Items && 'cuid' in valRes.Items && valRes.Items.cuid) {
-            console.log("customer exits");
+        if (valRes && valRes.Count != 0) {
+            this.log.debug("Customer exits");
             return true;
         } else {
-            console.log("customer do not exits");
+            this.log.debug("Customer do not exits");
             return false;
         }
     }
 
-    //values insert if customer does not exists
-    async createEntity(body) {
-        console.log("in create entity------------");
+    //values insert in entity table if customer does exists
+    async createEntity(body,cuid) {
         const euid = this.generateRandomeuid(2, 6);
-
-        console.log (JSON.stringify(body));
+        this.log.debug(JSON.stringify(body));
         let item = {
             euid: euid
         };
@@ -86,14 +80,13 @@ class AddEntity extends BaseHandler {
             let now = moment();
             body.business.lastUpdate = now.format();
         }
-        console.log(`${body.cuid}-entity`);
+        this.log.debug(`entity-${cuid}`);
         const params = {
-            TableName: `${body.cuid}-entity`,
+            TableName: `entity-${cuid}`,
             Item: Object.assign(item, body)
         };
-        console.log(JSON.stringify(params));
+        this.log.debug(JSON.stringify(params));
         await dynamodb.put(params).promise();
-
         return euid;
     }
 
@@ -101,38 +94,49 @@ class AddEntity extends BaseHandler {
         try {
             let body = event.body ? JSON.parse(event.body) : event;
             this.log.debug("body----" + JSON.stringify(body));
-
+            let cuid;
+            let euid;
             //Validate the input
             await utils.validate(body, this.getValidationSchema());
 
-            // Check if cid and cuid already exists
-            let customerExists = await this.checkIfCustomerExists(body.cid, body.cuid);
+            //check cuid path param
+            if (event && 'pathParameters' in event && event.pathParameters && 'cuid' in event.pathParameters && event.pathParameters.cuid) {
+                cuid = event.pathParameters.cuid;
+            }
+            else{
+                 return responseHandler.callbackRespondWithSimpleMessage('404', 'Please provide cuid');
+            }
+
+            // Check if customer already exists
+            let customerExists = await this.checkIfCustomerExists(body.cid, cuid);
 
             this.log.debug("customerExists:" + customerExists);
             if (customerExists) {
                 // Call to insert entity
-              let euid = await this.createEntity(body);
+                 euid = await this.createEntity(body,cuid);
             }
-            else { return responseHandler.callbackRespondWithSimpleMessage('404', 'Customer does not exists'); }
+            else {
+                return responseHandler.callbackRespondWithSimpleMessage('404', 'Customer does not exists');
+            }
 
             let resp = {
                 cid: body.cid,
                 cuid: body.cuid,
-                //euid: euid, // TODO
+                euid: euid,
                 message: "Entity Created Successfully"
-            }
-             return responseHandler.callbackRespondWithSimpleMessage(200, resp);
+            };
+            return responseHandler.callbackRespondWithSimpleMessage(200, resp);
         }
         catch (err) {
             if (err.message) {
                 return responseHandler.callbackRespondWithSimpleMessage(400, err.message);
             } else {
-                return responseHandler.callbackRespondWithSimpleMessage(500, 'Internal Server Error')
+                return responseHandler.callbackRespondWithSimpleMessage(500, 'Internal Server Error');
             }
         }
-    };
+    }
 }
 
 exports.createEntity = async (event, context, callback) => {
     return await new AddEntity().handler(event, context, callback);
-}
+};

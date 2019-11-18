@@ -23,15 +23,6 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem        
       Resource: '*'
-    - Effect: Allow
-      Action:
-        - lambda:InvokeFunction
-        - lambda:Invoke
-      Resource: '*'
-    - Effect: Allow
-      Action: 
-        - cognito-idp:*
-      Resource: '*'
 
 functions:
   getentitybyid:
@@ -46,7 +37,7 @@ functions:
     handler: handlers/createentity.createEntity
     events:
       - http:
-          path: /
+          path: /{cuid}/
           method: post
           cors: true
 

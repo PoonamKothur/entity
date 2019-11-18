@@ -4,6 +4,7 @@ const utils = require('../common/utils');
 const Joi = require('joi');
 const AWS = require('aws-sdk');
 const dynamodb = new AWS.DynamoDB.DocumentClient();
+const moment = require("moment");
 
 class UpdateEntitybyId extends BaseHandler {
     //this is main function
@@ -37,88 +38,107 @@ class UpdateEntitybyId extends BaseHandler {
     }
 
     // This function is used to get customer by cid and cuid
-    async checkIfEntityExists(body) {
-        console.log("in entity exits...");
+    async checkIfEntityExists(cuid, euid) {
         let valRes = await dynamodb.get({
-            TableName: `${body.cuid}-entity`,
+            TableName: `${cuid}-entity`,
             Key: {
-                euid: body.euid
+                euid: euid
             },
             ProjectionExpression: 'euid'
         }).promise();
-        console.log(JSON.stringify(valRes));
-        if (valRes && 'Item' in valRes && valRes.Item && 'body.euid' in valRes.Item && valRes.Item.euid) {
+        this.log.debug(JSON.stringify(valRes));
+        if (valRes && 'Item' in valRes && valRes.Item && 'euid' in valRes.Item && valRes.Item.euid) {
             return true;
         } else {
             return false;
         }
     }
 
-    async updateCustomer(cid, data) {
-        let item = {
-            cid: cid
-        }
-        const params = {
-            TableName: `customers-${process.env.STAGE}`,
-            Item: Object.assign(item, data)
+    async checkIfCustomerExists(cuid, cid) {
+        var params = {
+            TableName: 'customers_test',
+            KeyConditionExpression: "#cid = :cidValue and #cuid = :cuidValue",
+            ExpressionAttributeNames: {
+                "#cid": "cid",
+                "#cuid": "cuid"
+            },
+            ExpressionAttributeValues: {
+                ":cidValue": cid,
+                ":cuidValue": cuid
+            }
         };
-        console.log(JSON.stringify(data));
-        let valRes = await dynamodb.put(params).promise();
-        console.log(JSON.stringify(valRes));
-        return valRes;
+        let valRes = await dynamodb.query(params).promise();
+        this.log.debug("return values of customer table --- " + JSON.stringify(valRes));
+        if (valRes && valRes.Count != 0) {
+            return true;
+        } else {
+
+            return false;
+        }
     }
 
-    checkpathparams(event) {
-        if (event && 'pathParameters' in event && event.pathParameters && 'cuid' in event.pathParameters && event.pathParameters.cuid) {
+    //update entity by euid
+    async updateEntity(cuid, euid, body) {
+        let item = {
+            euid: euid
+        };
+        const params = {
+            TableName: `entity-${cuid}`,
+            Item: Object.assign(item, body)
+        };
+        //set last update date
+        let now = moment();
+        body.business.lastUpdate = now.format();
+        this.log.debug(JSON.stringify("params--" + JSON.stringify(params)));
 
-            if (event && 'pathParameters' in event && event.pathParameters && 'euid' in event.pathParameters && event.pathParameters.euid) {
-                return true;
-            }
-            else {
-                return responseHandler.callbackRespondWithSimpleMessage(400, "Please provide euid");
-            }
-        }
-        else {
-            return responseHandler.callbackRespondWithSimpleMessage(400, "Please provide cuid");
-        }
+        let valRes = await dynamodb.put(params).promise();
+        this.log.debug(JSON.stringify(valRes));
+        return valRes;
     }
 
     async process(event, context, callback) {
         try {
+            let customerExists;
             let body = event.body ? JSON.parse(event.body) : event;
+            
+            await utils.validate(body, this.getValidationSchema());
+            let cid = body.cid;
+            //check for cuid and euid
+            if (event && 'pathParameters' in event && event.pathParameters && 'cuid' in event.pathParameters && event.pathParameters.cuid) {
+                if (event && 'pathParameters' in event && event.pathParameters && 'euid' in event.pathParameters && event.pathParameters.euid) {
+                    //check if customer exists
+                    customerExists = await this.checkIfCustomerExists(cuid, cid);
+                }
+                else {
+                    return responseHandler.callbackRespondWithSimpleMessage(400, "Please provide euid");
+                }
+            }
+            else {
+                return responseHandler.callbackRespondWithSimpleMessage(400, "Please provide cuid");
+            }
 
-            //check path parameters
-            let paramresp = await checkpathparams(event);
-            console.log(paramresp);
-            //await utils.validate(body, this.getValidationSchema());
+            this.log.debug("customerExists:" + customerExists);
+            let cuid = event.pathParameters.cuid;
+            let euid = event.pathParameters.euid;
 
-            // //check if customer exists
-            // let customerExists = await this.checkIfCustomerExists(body.cid, cuid);
+            if (customerExists) {
+                //check if entity exists
+                let entityExists = await this.checkIfEntityExists(cuid, euid);
+                console.log(entityExists);
+                if (entityExists) {
+                    this.log.debug("update entity here");
+                    // Call to update entity
+                    let entityresp = await this.updateEntity(cuid, euid, body);
+                }
+                else { return responseHandler.callbackRespondWithSimpleMessage('404', 'Entity does not exists'); }
+            }
+            else { return responseHandler.callbackRespondWithSimpleMessage('404', 'Customer does not exists'); }
 
-            // this.log.debug("customerExists:" + customerExists);
-            // if (customerExists) {
-            //     // Call to insert entity
-            //     let euid = await this.createEntity(body);
-            // }
-            // else { return responseHandler.callbackRespondWithSimpleMessage('404', 'Customer does not exists'); }
-
-            // //check if entity exists
-            // let entityExists = await this.checkIfEntityExists(body.euid);
-
-            // this.log.debug("entityExists:" + entityExists);
-            // console.log("entityExists:" + entityExists);
-            // if (!entityExists) {
-            //     console.log("call to update entity");
-            //     // Call to update entity
-            //     //let updateResp = await this.updateCustomer(body.cid, body);
-
-            // }
-            // else { return responseHandler.callbackRespondWithSimpleMessage('400', 'Customer not exists'); }
-
-            // let resp = {
-            //     cid: body.cid,
-            //     message: "Customer Updated Successfully"
-            // }
+            let resp = {
+                cuid: cuid,
+                euid: euid,
+                message: "Entity Updated Successfully"
+            };
 
             return responseHandler.callbackRespondWithSimpleMessage(200, resp);
         }
@@ -126,7 +146,7 @@ class UpdateEntitybyId extends BaseHandler {
             if (err.message) {
                 return responseHandler.callbackRespondWithSimpleMessage(400, err.message);
             } else {
-                return responseHandler.callbackRespondWithSimpleMessage(500, 'Internal Server Error')
+                return responseHandler.callbackRespondWithSimpleMessage(500, 'Internal Server Error');
             }
         }
     }
@@ -134,4 +154,4 @@ class UpdateEntitybyId extends BaseHandler {
 
 exports.updateentity = async (event, context, callback) => {
     return await new UpdateEntitybyId().handler(event, context, callback);
-}
+};

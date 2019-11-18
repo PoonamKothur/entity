@@ -14,7 +14,7 @@ class GetEntitybyId extends BaseHandler {
             Key: {
                 "euid": euid
             },
-            TableName: `${cuid}-entity`
+            TableName: `entity-${cuid}`
         };
         return await documentClient.get(params).promise();
     }
@@ -25,13 +25,12 @@ class GetEntitybyId extends BaseHandler {
 
             //check for cuid and euid from route
             if (event && 'pathParameters' in event && event.pathParameters && 'cuid' in event.pathParameters && event.pathParameters.cuid) {
-
                 if (event && 'pathParameters' in event && event.pathParameters && 'euid' in event.pathParameters && event.pathParameters.euid) {
-
                     let euid = event.pathParameters.euid;
                     let cuid = event.pathParameters.cuid;
+                    //get entity by euid
                     let res = await this.getEntityByEuid(cuid, euid);
-
+                    this.log.debug(res);
                     if (res && 'Item' in res) {
                         return responseHandler.callbackRespondWithJsonBody(200, res.Item);
                     }
@@ -47,6 +46,7 @@ class GetEntitybyId extends BaseHandler {
         }
         catch (err) {
             if (err.message) {
+                this.log.debug(err);
                 return responseHandler.callbackRespondWithSimpleMessage(400, err.message);
             } else {
                 return responseHandler.callbackRespondWithSimpleMessage(500, 'Internal Server Error')

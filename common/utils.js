@@ -52,3 +52,6 @@ exports.isNullOrEmptyKey = (json,key,isArray) => {
 
     return true;
 };
+
+// //this function is to geenrate aplhnumeric random number
+// export.generateUniqueId = 
