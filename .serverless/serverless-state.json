@@ -152,7 +152,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cw-entity/dev/1574068284483-2019-11-18T09:11:24.483Z/cw-entity.zip"
+                "S3Key": "serverless/cw-entity/dev/1574068413736-2019-11-18T09:13:33.736Z/cw-entity.zip"
               },
               "FunctionName": "cw-entity-dev-getentitybyid",
               "Handler": "handlers/getentitybyid.getentity",
@@ -174,14 +174,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "GetentitybyidLambdaVersion8eRM7CgxBfp0gYyayksxz8Fd8aS5IJoLUtfYnYJbKng": {
+          "GetentitybyidLambdaVersionPnj4CSzBpZGAQ4m5cGT2DE5EdTD80hQxKXzOmKc4VY": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetentitybyidLambdaFunction"
               },
-              "CodeSha256": "U6ijjwSoLwajnCxOH2mvcxzEWZITagwLA/6CsDYhDIQ="
+              "CodeSha256": "WXg5HTFLpBPC0gFlsiGJ6Qioxs1dQzd2mRYQlmTk3P4="
             }
           },
           "CreateentityLambdaFunction": {
@@ -191,7 +191,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cw-entity/dev/1574068284483-2019-11-18T09:11:24.483Z/cw-entity.zip"
+                "S3Key": "serverless/cw-entity/dev/1574068413736-2019-11-18T09:13:33.736Z/cw-entity.zip"
               },
               "FunctionName": "cw-entity-dev-createentity",
               "Handler": "handlers/createentity.createEntity",
@@ -213,14 +213,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "CreateentityLambdaVersionv9ESjPQwxla8GWkwKVSQk0E4nMyEIIEHr8ufTWjLoDM": {
+          "CreateentityLambdaVersionS6seLmtAAlFpn6FccfMGdQZfQWLO3W2pAH1UPdb9s": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CreateentityLambdaFunction"
               },
-              "CodeSha256": "U6ijjwSoLwajnCxOH2mvcxzEWZITagwLA/6CsDYhDIQ="
+              "CodeSha256": "WXg5HTFLpBPC0gFlsiGJ6Qioxs1dQzd2mRYQlmTk3P4="
             }
           },
           "UpdateentityLambdaFunction": {
@@ -230,7 +230,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cw-entity/dev/1574068284483-2019-11-18T09:11:24.483Z/cw-entity.zip"
+                "S3Key": "serverless/cw-entity/dev/1574068413736-2019-11-18T09:13:33.736Z/cw-entity.zip"
               },
               "FunctionName": "cw-entity-dev-updateentity",
               "Handler": "handlers/updateentity.updateentity",
@@ -252,14 +252,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "UpdateentityLambdaVersion6iZydhhq7oGUBVjm7xGYgOoISD0OgNeMQt5Pm2J6o": {
+          "UpdateentityLambdaVersionbaYBBEFe9n9J2YSBf5P2CiozEzLtVZxg5jSftR252Lc": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateentityLambdaFunction"
               },
-              "CodeSha256": "U6ijjwSoLwajnCxOH2mvcxzEWZITagwLA/6CsDYhDIQ="
+              "CodeSha256": "WXg5HTFLpBPC0gFlsiGJ6Qioxs1dQzd2mRYQlmTk3P4="
             }
           },
           "ApiGatewayRestApi": {
@@ -523,7 +523,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1574068272924": {
+          "ApiGatewayDeployment1574068408397": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -660,19 +660,19 @@
           "GetentitybyidLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetentitybyidLambdaVersion8eRM7CgxBfp0gYyayksxz8Fd8aS5IJoLUtfYnYJbKng"
+              "Ref": "GetentitybyidLambdaVersionPnj4CSzBpZGAQ4m5cGT2DE5EdTD80hQxKXzOmKc4VY"
             }
           },
           "CreateentityLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CreateentityLambdaVersionv9ESjPQwxla8GWkwKVSQk0E4nMyEIIEHr8ufTWjLoDM"
+              "Ref": "CreateentityLambdaVersionS6seLmtAAlFpn6FccfMGdQZfQWLO3W2pAH1UPdb9s"
             }
           },
           "UpdateentityLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateentityLambdaVersion6iZydhhq7oGUBVjm7xGYgOoISD0OgNeMQt5Pm2J6o"
+              "Ref": "UpdateentityLambdaVersionbaYBBEFe9n9J2YSBf5P2CiozEzLtVZxg5jSftR252Lc"
             }
           },
           "ServiceEndpoint": {
@@ -848,7 +848,7 @@
     "artifact": "/home/poonam/CodeBlock/Projects/CecureCloud/Code/cecurecloud/entity/.serverless/cw-entity.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/cw-entity/dev/1574068284483-2019-11-18T09:11:24.483Z",
+    "artifactDirectoryName": "serverless/cw-entity/dev/1574068413736-2019-11-18T09:13:33.736Z",
     "artifact": "cw-entity.zip"
   }
 }

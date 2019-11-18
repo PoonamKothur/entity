@@ -43,7 +43,7 @@ class AddEntity extends BaseHandler {
     // This function is used to get customer by cid and cuid
     async checkIfCustomerExists(cid, cuid) {
         var params = {
-            TableName:  `${process.env.STAGE}-customerid`,
+            TableName:  `customers-${process.env.STAGE}`,
             KeyConditionExpression: "#cid = :cidValue and #cuid = :cuidValue",
             ExpressionAttributeNames: {
                 "#cid": "cid",
@@ -79,9 +79,9 @@ class AddEntity extends BaseHandler {
             let now = moment();
             body.business.lastUpdate = now.format();
         }
-        this.log.debug(`entity-${cuid}`);
+        this.log.debug(`${cuid}-entity`);
         const params = {
-            TableName: `entity-${cuid}`,
+            TableName: `${cuid}-entity`,
             Item: Object.assign(item, body)
         };
         this.log.debug(JSON.stringify(params));
