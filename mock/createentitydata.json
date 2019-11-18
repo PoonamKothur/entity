@@ -1,8 +1,10 @@
 {
-    "path": "/", 
-    "httpMethod": "PUT",    
+    "path": "/{cuid}",
+    "httpMethod": "POST",
     "queryStringParameters": null,
-    "pathParameters": "{\"cuid\":\"8AG7J98E\",\"euid\":\"ABCD5B9C\"}",    
-    "body": "{\"cid\":\"000003\",\"eid\":\"EXTERNAL\",\"business\":{\"firstName\":\"testenity\"}}",
+    "pathParameters": {
+        "cuid": "51VJX947"
+    },
+    "body": "{\"cid\":\"0000089\",\"eid\":\"EXTERNAL\",\"business\":{\"firstName\":\"testenity\"}}",
     "isBase64Encoded": false
 }

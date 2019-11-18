@@ -42,9 +42,10 @@ class AddEntity extends BaseHandler {
 
     // This function is used to get customer by cid and cuid
     async checkIfCustomerExists(cid, cuid) {
+
         var params = {
             //TableName:  `${process.env.STAGE}-customerid`,
-            TableName: 'customers-dev',
+            TableName: "customers_test",
             KeyConditionExpression: "#cid = :cidValue and #cuid = :cuidValue",
             ExpressionAttributeNames: {
                 "#cid": "cid",
@@ -55,6 +56,7 @@ class AddEntity extends BaseHandler {
                 ":cuidValue": cuid
             }
         };
+        console.log(params);    
         this.log.debug("params---" + JSON.stringify(params));
         let valRes = await dynamodb.query(params).promise();
         this.log.debug("return values of table --- " + JSON.stringify(valRes));
@@ -94,39 +96,39 @@ class AddEntity extends BaseHandler {
         try {
             let body = event.body ? JSON.parse(event.body) : event;
             this.log.debug("body----" + JSON.stringify(body));
-            //let cuid;
-            //let euid;
+            let cuid;
+            let euid;
             //Validate the input
             await utils.validate(body, this.getValidationSchema());
 
             //check cuid path param
             if (event && 'pathParameters' in event && event.pathParameters && 'cuid' in event.pathParameters && event.pathParameters.cuid) {
                
-                return event.pathParameters.cuid;
+                cuid = event.pathParameters.cuid;
             }
             else{
                  return responseHandler.callbackRespondWithSimpleMessage('404', 'Please provide cuid');
             }
 
-            // // Check if customer already exists
-            // let customerExists = await this.checkIfCustomerExists(body.cid, cuid);
+            // Check if customer already exists
+            let customerExists = await this.checkIfCustomerExists(body.cid, cuid);
 
-            // this.log.debug("customerExists:" + customerExists);
-            // if (customerExists) {
-            //     // Call to insert entity
-            //      euid = await this.createEntity(body,cuid);
-            // }
-            // else {
-            //     return responseHandler.callbackRespondWithSimpleMessage('404', 'Customer does not exists');
-            // }
+            this.log.debug("customerExists:" + customerExists);
+            if (customerExists) {
+                // Call to insert entity
+                 euid = await this.createEntity(body,cuid);
+            }
+            else {
+                return responseHandler.callbackRespondWithSimpleMessage('404', 'Customer does not exists');
+            }
 
-            // let resp = {
-            //     cid: body.cid,
-            //     cuid: body.cuid,
-            //     euid: euid,
-            //     message: "Entity Created Successfully"
-            // };
-            // return responseHandler.callbackRespondWithSimpleMessage(200, resp);
+            let resp = {
+                cid: body.cid,
+                cuid: body.cuid,
+                euid: euid,
+                message: "Entity Created Successfully"
+            };
+            return responseHandler.callbackRespondWithSimpleMessage(200, resp);
         }
         catch (err) {
             if (err.message) {
