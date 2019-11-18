@@ -37,7 +37,7 @@ functions:
     handler: handlers/createentity.createEntity
     events:
       - http:
-          path: /{cuid}/
+          path: /{cuid}
           method: post
           cors: true
 
