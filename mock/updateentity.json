@@ -1,0 +1,11 @@
+{
+    "path": "/{cuid}/{euid}",
+    "httpMethod": "PUT",
+    "queryStringParameters": null,
+    "pathParameters": {
+        "cuid": "C5M0TN53",
+        "euid": "FJ6VCO00"
+    },
+    "body": "{\"cid\":\"000009\",\"eid\":\"EXTERNAL\"}",
+    "isBase64Encoded": false
+}
