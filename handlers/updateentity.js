@@ -17,7 +17,6 @@ class UpdateEntitybyId extends BaseHandler {
 
         return Joi.object().keys({
             cid: Joi.string().required(),
-            cuid: Joi.string().required(),
             eid: Joi.string().required(),
             business: {
                 firstName: Joi.string(),

@@ -131,7 +131,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cw-entity/dev/1574074028024-2019-11-18T10:47:08.024Z/cw-entity.zip"
+          "S3Key": "serverless/cw-entity/dev/1574186791368-2019-11-19T18:06:31.368Z/cw-entity.zip"
         },
         "FunctionName": "cw-entity-dev-getentitybyid",
         "Handler": "handlers/getentitybyid.getentity",
@@ -145,7 +145,9 @@
         "Runtime": "nodejs10.x",
         "Timeout": 30,
         "Environment": {
-          "Variables": {}
+          "Variables": {
+            "STAGE": "dev"
+          }
         }
       },
       "DependsOn": [
@@ -153,14 +155,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GetentitybyidLambdaVersionzEYSvopF4Wt3dgT8IlTuurA7QhSfoUHmXrPyjf8jWAE": {
+    "GetentitybyidLambdaVersion4xE2jFYstpc13UjyPeyHTfonSu2JRwEOubGQzA8kY": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetentitybyidLambdaFunction"
         },
-        "CodeSha256": "E2ZaH9nGqvZcAZFJBXqTFwdpSlOzxDKEvfrlZCVFTxA="
+        "CodeSha256": "KfEKz8CenWNZIjXfWRuG1k89ibEUBzk+/sEjaP/bJIA="
       }
     },
     "CreateentityLambdaFunction": {
@@ -170,7 +172,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cw-entity/dev/1574074028024-2019-11-18T10:47:08.024Z/cw-entity.zip"
+          "S3Key": "serverless/cw-entity/dev/1574186791368-2019-11-19T18:06:31.368Z/cw-entity.zip"
         },
         "FunctionName": "cw-entity-dev-createentity",
         "Handler": "handlers/createentity.createEntity",
@@ -184,7 +186,9 @@
         "Runtime": "nodejs10.x",
         "Timeout": 30,
         "Environment": {
-          "Variables": {}
+          "Variables": {
+            "STAGE": "dev"
+          }
         }
       },
       "DependsOn": [
@@ -192,14 +196,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "CreateentityLambdaVersionIGpl1hC5yQLn7fRCOsddSZmkLEuerp08j78P9xWTZU": {
+    "CreateentityLambdaVersionRyySjo2MreBK7s97SvRc8MvLXXQRZvTMMHzHsXhd4": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateentityLambdaFunction"
         },
-        "CodeSha256": "E2ZaH9nGqvZcAZFJBXqTFwdpSlOzxDKEvfrlZCVFTxA="
+        "CodeSha256": "KfEKz8CenWNZIjXfWRuG1k89ibEUBzk+/sEjaP/bJIA="
       }
     },
     "UpdateentityLambdaFunction": {
@@ -209,7 +213,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cw-entity/dev/1574074028024-2019-11-18T10:47:08.024Z/cw-entity.zip"
+          "S3Key": "serverless/cw-entity/dev/1574186791368-2019-11-19T18:06:31.368Z/cw-entity.zip"
         },
         "FunctionName": "cw-entity-dev-updateentity",
         "Handler": "handlers/updateentity.updateentity",
@@ -223,7 +227,9 @@
         "Runtime": "nodejs10.x",
         "Timeout": 30,
         "Environment": {
-          "Variables": {}
+          "Variables": {
+            "STAGE": "dev"
+          }
         }
       },
       "DependsOn": [
@@ -231,14 +237,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "UpdateentityLambdaVersionjFMSQIsdiaT0PkmPbtTxXuWSABkcv763OkIaKTpgVRw": {
+    "UpdateentityLambdaVersion4i7NcSGiaD2fj1dWLqAZtSXVPueJUYuOMxElblmbcU": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "UpdateentityLambdaFunction"
         },
-        "CodeSha256": "E2ZaH9nGqvZcAZFJBXqTFwdpSlOzxDKEvfrlZCVFTxA="
+        "CodeSha256": "KfEKz8CenWNZIjXfWRuG1k89ibEUBzk+/sEjaP/bJIA="
       }
     },
     "ApiGatewayRestApi": {
@@ -502,7 +508,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1574074018990": {
+    "ApiGatewayDeployment1574186776759": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -639,19 +645,19 @@
     "GetentitybyidLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetentitybyidLambdaVersionzEYSvopF4Wt3dgT8IlTuurA7QhSfoUHmXrPyjf8jWAE"
+        "Ref": "GetentitybyidLambdaVersion4xE2jFYstpc13UjyPeyHTfonSu2JRwEOubGQzA8kY"
       }
     },
     "CreateentityLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateentityLambdaVersionIGpl1hC5yQLn7fRCOsddSZmkLEuerp08j78P9xWTZU"
+        "Ref": "CreateentityLambdaVersionRyySjo2MreBK7s97SvRc8MvLXXQRZvTMMHzHsXhd4"
       }
     },
     "UpdateentityLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "UpdateentityLambdaVersionjFMSQIsdiaT0PkmPbtTxXuWSABkcv763OkIaKTpgVRw"
+        "Ref": "UpdateentityLambdaVersion4i7NcSGiaD2fj1dWLqAZtSXVPueJUYuOMxElblmbcU"
       }
     },
     "ServiceEndpoint": {
