@@ -5,6 +5,6 @@
     "pathParameters": {
         "cuid": "51VJX947"
     },
-    "body": "{\"cid\":\"0000089\",\"eid\":\"EXTERNAL\",\"business\":{\"firstName\":\"testenity\"}}",
+    "body": "{\"cid\":\"0000089\",\"eid\":\"EXTERNAL\"}",
     "isBase64Encoded": false
 }

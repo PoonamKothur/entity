@@ -131,7 +131,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cw-entity/dev/1574069082823-2019-11-18T09:24:42.823Z/cw-entity.zip"
+          "S3Key": "serverless/cw-entity/dev/1574074028024-2019-11-18T10:47:08.024Z/cw-entity.zip"
         },
         "FunctionName": "cw-entity-dev-getentitybyid",
         "Handler": "handlers/getentitybyid.getentity",
@@ -153,14 +153,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GetentitybyidLambdaVersion2LRn6S5razwoDMOV0n9XpkBfIQyzSKFcZdxIYxd3A": {
+    "GetentitybyidLambdaVersionzEYSvopF4Wt3dgT8IlTuurA7QhSfoUHmXrPyjf8jWAE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetentitybyidLambdaFunction"
         },
-        "CodeSha256": "W4oovXLr1VxUhXXUx96ZEOel1BjJaB2EjhT1CFsSWOA="
+        "CodeSha256": "E2ZaH9nGqvZcAZFJBXqTFwdpSlOzxDKEvfrlZCVFTxA="
       }
     },
     "CreateentityLambdaFunction": {
@@ -170,7 +170,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cw-entity/dev/1574069082823-2019-11-18T09:24:42.823Z/cw-entity.zip"
+          "S3Key": "serverless/cw-entity/dev/1574074028024-2019-11-18T10:47:08.024Z/cw-entity.zip"
         },
         "FunctionName": "cw-entity-dev-createentity",
         "Handler": "handlers/createentity.createEntity",
@@ -192,14 +192,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "CreateentityLambdaVersionE6aqXYm8p1nYzGgAjnLsJQrGUcFvBtCtlm5AA9mMwA": {
+    "CreateentityLambdaVersionIGpl1hC5yQLn7fRCOsddSZmkLEuerp08j78P9xWTZU": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateentityLambdaFunction"
         },
-        "CodeSha256": "W4oovXLr1VxUhXXUx96ZEOel1BjJaB2EjhT1CFsSWOA="
+        "CodeSha256": "E2ZaH9nGqvZcAZFJBXqTFwdpSlOzxDKEvfrlZCVFTxA="
       }
     },
     "UpdateentityLambdaFunction": {
@@ -209,7 +209,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cw-entity/dev/1574069082823-2019-11-18T09:24:42.823Z/cw-entity.zip"
+          "S3Key": "serverless/cw-entity/dev/1574074028024-2019-11-18T10:47:08.024Z/cw-entity.zip"
         },
         "FunctionName": "cw-entity-dev-updateentity",
         "Handler": "handlers/updateentity.updateentity",
@@ -231,14 +231,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "UpdateentityLambdaVersionpIAWRmzGm8xH7gzGCRgETpTuRW8h3DOWhyjfw6bUAFY": {
+    "UpdateentityLambdaVersionjFMSQIsdiaT0PkmPbtTxXuWSABkcv763OkIaKTpgVRw": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "UpdateentityLambdaFunction"
         },
-        "CodeSha256": "W4oovXLr1VxUhXXUx96ZEOel1BjJaB2EjhT1CFsSWOA="
+        "CodeSha256": "E2ZaH9nGqvZcAZFJBXqTFwdpSlOzxDKEvfrlZCVFTxA="
       }
     },
     "ApiGatewayRestApi": {
@@ -502,7 +502,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1574069078130": {
+    "ApiGatewayDeployment1574074018990": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -639,19 +639,19 @@
     "GetentitybyidLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetentitybyidLambdaVersion2LRn6S5razwoDMOV0n9XpkBfIQyzSKFcZdxIYxd3A"
+        "Ref": "GetentitybyidLambdaVersionzEYSvopF4Wt3dgT8IlTuurA7QhSfoUHmXrPyjf8jWAE"
       }
     },
     "CreateentityLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateentityLambdaVersionE6aqXYm8p1nYzGgAjnLsJQrGUcFvBtCtlm5AA9mMwA"
+        "Ref": "CreateentityLambdaVersionIGpl1hC5yQLn7fRCOsddSZmkLEuerp08j78P9xWTZU"
       }
     },
     "UpdateentityLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "UpdateentityLambdaVersionpIAWRmzGm8xH7gzGCRgETpTuRW8h3DOWhyjfw6bUAFY"
+        "Ref": "UpdateentityLambdaVersionjFMSQIsdiaT0PkmPbtTxXuWSABkcv763OkIaKTpgVRw"
       }
     },
     "ServiceEndpoint": {
